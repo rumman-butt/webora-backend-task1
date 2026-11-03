@@ -59,3 +59,34 @@ app.post('/contact', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// ==========================================
+// TASK 4: Simple Login Validation API
+// ==========================================
+app.post('/login', (req, res) => {
+    // 1. Read username and password from the request body
+    const { username, password } = req.body;
+
+    // 2. Define sample demo credentials (DO NOT use real passwords!)
+    const DEMO_USER = "admin";
+    const DEMO_PASS = "password123";
+
+    // 3. Check if fields are missing
+    if (!username || !password) {
+        return res.status(400).json({ 
+            error: "Please provide both username and password." 
+        });
+    }
+
+    // 4. Check if credentials match the demo values
+    if (username === DEMO_USER && password === DEMO_PASS) {
+        res.status(200).json({ 
+            message: "Login successful! Welcome, admin." 
+        });
+    } else {
+        // Return a clear error for incorrect details
+        res.status(401).json({ 
+            error: "Invalid credentials. Please check your username and password." 
+        });
+    }
+});
